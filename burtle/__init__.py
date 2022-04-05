@@ -1,1 +1,1 @@
-import burtle.main
+from burtle.main import *
