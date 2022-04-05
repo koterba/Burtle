@@ -90,11 +90,37 @@ class Burtle(Turtle):
     def tp(self, other):
         self.goto(other.xcor(), other.ycor())
 
-    def draw_square(self, x=0, y=0, size=10):
+    def draw_square(self, x=0, y=0, size=50, colour=None):
         self.seth(0)
+        self.penup()
         self.goto(x,y)
+        self.pendown()
+        if colour is not None:
+            self.fillcolor(colour)
+            self.begin_fill()
         for i in range(4):
             self.forward(size)
+            self.r(90)
+
+        self.end_fill()
+
+    def draw_grid(self, arr, size=50, special=None):
+        y = (len(arr) * size) // 2
+        default_x = 0 - (len(arr[0]) * size) // 2
+
+        if special is not None:
+            char = special[0]
+            char_if = special[0]
+
+        for row in arr:
+            x = default_x
+            for i in row:
+                if special is not None and i == char:
+                    self.draw_square(x, y, size, colour=special[1])
+                else:
+                    self.draw_square(x, y, size)
+                x += size
+            y -= size
 
 
 BScreen = Screen
