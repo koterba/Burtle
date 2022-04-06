@@ -1,8 +1,10 @@
 from turtle import Turtle, Screen
 from PIL import Image
 import turtle
+import os
 
 
+current_id = 0
 class Burtle(Turtle):
     def __init__(self, image_path=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -15,21 +17,36 @@ class Burtle(Turtle):
         self.top = None
         self.bottom = None
 
-        if image_path is not None:
-            self.get_size()
+        global current_id ## if two objects have the same image, allow for different dimensions when they are changed
+        self.object_id = current_id ## by assigning a unique id when the new image is saved
+        current_id += 1
+
+        if image_path is not None: ## if image is passed, make turtle into an image, else its a normal turtle
+            self.set_img_hitbox(image_path)
             turtle.addshape(self.image_path)
 
             self.penup()
             self.shape(self.image_path)
 
-    def get_size(self):
-        self.pil_image = Image.open(self.image_path)
+    def set_img_hitbox(self, image_path: str):
+        self.pil_image = Image.open(image_path)
         self.width, self.height = self.pil_image.size
+
         self.top = self.height // 2
         self.bottom = self.top
-
         self.left = self.width // 2
         self.right = self.left
+
+    def change_size(self, percentage: int):
+        self.new_image_path = f"{self.object_id}_{self.image_path}"
+        self.pil_image.resize(((self.width * percentage) // 100, (self.height * percentage) // 100)).save(self.new_image_path)
+        turtle.addshape(self.new_image_path)
+        self.shape(self.new_image_path)
+
+        self.pil_image = Image.open(self.new_image_path)
+        self.set_img_hitbox(self.new_image_path)
+
+
 
     def is_hitting(self, other):
         x_touch = False
