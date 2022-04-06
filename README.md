@@ -1,15 +1,13 @@
 # Burtle
 
 A Better TURTLE. Makes making games easier.
+Documentation: https://alannxq.github.io/
 
 ## Installation
 
 ```Py
 pip install burtle
 ```
-
-## All Methods
-https://alannxq.github.io/
 
 ## Usage
 
