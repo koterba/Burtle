@@ -14,7 +14,6 @@ pip install burtle
 ```Py
 from burtle import Burtle, done
 
-pen = Burtle()
 
 frog = Burtle("frog.gif")
 bad_frog = Burtle("frog.gif")
