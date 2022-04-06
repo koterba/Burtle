@@ -1,6 +1,8 @@
 from turtle import Turtle, Screen
+from functools import partial
 from PIL import Image
 import turtle
+import time
 import os
 
 
@@ -46,6 +48,27 @@ class Burtle(Turtle):
         self.pil_image = Image.open(self.new_image_path)
         self.set_img_hitbox(self.new_image_path)
 
+
+    def change_image(self, img_path):
+        turtle.addshape(img_path)
+        self.shape = img_path
+
+
+    def add_image(self, img_path):
+        self.convert_to_gif(img_path)
+        img_path = self.new_file_path
+        self.set_img_hitbox(img_path)
+        turtle.addshape(img_path)
+
+        self.penup()
+        self.clear()
+        self.shape(img_path)
+
+
+    def convert_to_gif(self, file_path):
+        img = Image.open(file_path)
+        self.new_file_path = f"{file_path.split('.')[0]}.gif"
+        img.save(self.new_file_path)
 
 
     def is_hitting(self, other):
@@ -138,6 +161,62 @@ class Burtle(Turtle):
                     self.draw_square(x, y, size)
                 x += size
             y -= size
+
+
+class Textbox(Burtle):
+    def __init__(self, x=0, y=0, box_height=50, box_width=200, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if x != 0 and y != 0:
+            self.penup()
+            self.goto(x, y)
+        self.og_pos = self.pos()
+        self.box_height = box_height
+        self.box_width = box_width
+        self.text = ""
+        self.hideturtle()
+
+        self.draw_box_outline()
+        self.penup()
+        self.goto(self.og_pos)
+
+        self.update_text()
+
+
+    def draw_box_outline(self):
+        self.go(down=self.box_height // 2, left=self.box_width // 2)
+        self.pendown()
+        self.look("right")
+        for _ in range(2):
+            self.forward(self.box_width)
+            self.r(90)
+            self.forward(self.box_height)
+            self.r(90)
+
+    def update_text(self, char=""):
+        self.clear()
+        self.penup()
+        self.goto(self.og_pos)
+        self.draw_box_outline()
+        self.penup()
+        self.goto(self.og_pos)
+        self.go(down=10)
+        self.text += char
+        self.write(f"{self.text}", align="center", font=('Iosevka NF', 15, 'normal'))
+
+    def remove_text(self):
+        self.text = self.text[:-1]
+        self.update_text()
+
+    def get_input(self, wn):
+        wn.listen()
+        for new_letter in 'abcdefghijklmnopqrstuvwxyz':
+            func = partial(self.update_text, new_letter)
+            wn.onkeypress(func, new_letter)
+            func = partial(self.update_text, new_letter.upper())
+            wn.onkeypress(func, new_letter.upper())
+        wn.onkeypress(lambda: self.update_text(' '), 'space')
+        wn.onkeypress(self.remove_text, "BackSpace")
+
 
 
 BScreen = Screen
