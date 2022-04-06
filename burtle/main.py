@@ -8,9 +8,9 @@ import os
 
 current_id = 0
 class Burtle(Turtle):
-    def __init__(self, image_path=None, *args, **kwargs):
+    def __init__(self, image=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.image_path = image_path
+        self.image = image
         self.pil_image = None
         self.width = None
         self.height = None
@@ -23,15 +23,18 @@ class Burtle(Turtle):
         self.object_id = current_id ## by assigning a unique id when the new image is saved
         current_id += 1
 
-        if image_path is not None: ## if image is passed, make turtle into an image, else its a normal turtle
-            self.set_img_hitbox(image_path)
-            turtle.addshape(self.image_path)
+        if self.image is not None: ## if image is passed, make turtle into an image, else its a normal turtle
+            self.setup_hitbox()
 
-            self.penup()
-            self.shape(self.image_path)
+    def process_image(self):
+        self.convert_to_gif()
+        turtle.addshape(self.image)
+        self.setup_hitbox()
+        self.shape(self.image)
+        self.penup()
 
-    def set_img_hitbox(self, image_path: str):
-        self.pil_image = Image.open(image_path)
+    def setup_hitbox(self):
+        self.pil_image = Image.open(self.image)
         self.width, self.height = self.pil_image.size
 
         self.top = self.height // 2
@@ -39,36 +42,35 @@ class Burtle(Turtle):
         self.left = self.width // 2
         self.right = self.left
 
-    def change_size(self, percentage: int):
-        self.new_image_path = f"{self.object_id}_{self.image_path}"
-        self.pil_image.resize(((self.width * percentage) // 100, (self.height * percentage) // 100)).save(self.new_image_path)
-        turtle.addshape(self.new_image_path)
-        self.shape(self.new_image_path)
+    def change_size(self, percentage=None, static_size=None):
+        if "/" in self.image:
+            slash_location = self.image.rfind("/") + 1
+            file_name = f"{self.object_id}_{self.image[slash_location:]}"
+            file_dir = self.image[:slash_location]
+            self.new_image_path = f"{file_dir}{file_name}"
+        else:
+            self.new_image_path = f"{self.object_id}_{self.image}"
 
-        self.pil_image = Image.open(self.new_image_path)
-        self.set_img_hitbox(self.new_image_path)
+        if static_size is not None:
+            self.pil_image.resize((static_size, static_size)).save(
+                self.new_image_path)
+        else:
+            self.pil_image.resize(((self.width * percentage) // 100, (self.height * percentage) // 100)).save(self.new_image_path)
+        self.image = self.new_image_path
+
+        self.process_image()
 
 
     def change_image(self, img_path):
-        turtle.addshape(img_path)
-        self.shape = img_path
+        self.image = img_path
+        self.process_image()
 
 
-    def add_image(self, img_path):
-        self.convert_to_gif(img_path)
-        img_path = self.new_file_path
-        self.set_img_hitbox(img_path)
-        turtle.addshape(img_path)
-
-        self.penup()
-        self.clear()
-        self.shape(img_path)
-
-
-    def convert_to_gif(self, file_path):
-        img = Image.open(file_path)
-        self.new_file_path = f"{file_path.split('.')[0]}.gif"
-        img.save(self.new_file_path)
+    def convert_to_gif(self):
+        if self.image.split(".")[1] != "gif":
+            img = Image.open(self.image)
+            self.image = f"{self.image.split('.')[0]}.gif"
+            img.save(self.image)
 
 
     def is_hitting(self, other):
@@ -166,7 +168,8 @@ class Burtle(Turtle):
 class Textbox(Burtle):
     def __init__(self, x=0, y=0, box_height=50, box_width=200, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if x != 0 and y != 0:
+        if x != 0 or y != 0:
+            print("went through")
             self.penup()
             self.goto(x, y)
         self.og_pos = self.pos()
