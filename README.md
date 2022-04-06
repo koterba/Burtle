@@ -8,6 +8,9 @@ A Better TURTLE. Makes making games easier.
 pip install burtle
 ```
 
+## All Methods
+https://alannxq.github.io/
+
 ## Usage
 
 ```Py
