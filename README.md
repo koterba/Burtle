@@ -1,6 +1,6 @@
 # Burtle
 
-A Better TURTLE. Makes making games easier.\n
+A Better TURTLE. Makes making games easier. <br>
 Documentation: https://alannxq.github.io/
 
 ## Installation
