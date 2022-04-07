@@ -6,11 +6,27 @@ import time
 import os
 
 
+white_rectangle = __file__[:__file__.rfind("/")+1] + "default_images/white_rectangle.gif"
+black_rectangle = __file__[:__file__.rfind("/")+1] + "default_images/black_rectangle.gif"
+white_circle = __file__[:__file__.rfind("/")+1] + "default_images/white_circle.gif"
+black_circle = __file__[:__file__.rfind("/")+1] + "default_images/black_circle.gif"
+
 current_id = 0
 class Burtle(Turtle):
     def __init__(self, image=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.image = image
+
+        if image == "white_rectangle":  # Preset images for the user
+            self.image = white_rectangle
+        elif image == "black_rectangle":
+            self.image = black_rectangle
+        elif image == "white_circle":
+            self.image = white_circle
+        elif image == "black_circle":
+            self.image = black_circle
+        else:
+            self.image = image
+
         self.pil_image = None
         self.width = None
         self.height = None
@@ -27,12 +43,14 @@ class Burtle(Turtle):
         if self.image is not None: ## if image is passed, make turtle into an image, else its a normal turtle
             self.process_image()
 
+
     def process_image(self):
         self.convert_to_gif()
         turtle.addshape(self.image)
         self.setup_hitbox()
         self.shape(self.image)
         self.penup()
+
 
     def setup_hitbox(self):
         self.pil_image = Image.open(self.image)
@@ -43,6 +61,7 @@ class Burtle(Turtle):
         self.left = self.width // 2
         self.right = self.left
 
+
     def change_size(self, percentage=None, static_size=None):
         self.duplicate_image()
 
@@ -50,20 +69,20 @@ class Burtle(Turtle):
             self.pil_image.resize((static_size, static_size)).save(
                 self.new_image_path)
         else:
-            self.pil_image.resize(((self.width * percentage) // 100, (self.height * percentage) // 100)).save(self.new_image_path)
+            self.calc_width = (self.width * percentage) // 100
+            self.calc_height = (self.height * percentage) // 100
+            self.pil_image.resize((self.calc_width, self.calc_height)).save(self.new_image_path)
         self.image = self.new_image_path
-
         self.process_image()
 
 
-    def rotate(self, **kwargs):
+    def rotate(self, degrees):
         self.duplicate_image()
-        if "left" in kwargs:
-            img = Image.open(self.image)
-            img = img.rotate(kwargs["left"], expand=1)
-            img.save(self.new_image_path)
-            self.image = self.new_image_path
-            self.process_image()
+        img = Image.open(self.image)
+        img = img.rotate(degrees, expand=1)
+        img.save(self.new_image_path)
+        self.image = self.new_image_path
+        self.process_image()
 
 
     def change_image(self, img_path):
@@ -87,7 +106,7 @@ class Burtle(Turtle):
 
     def convert_to_gif(self):
         if "." in self.image:
-            if self.image.split(".")[1] != "gif":
+            if self.image.split(".")[-1] != "gif":
                 img = Image.open(self.image)
                 self.image = f"{self.image.split('.')[0]}.gif"
                 img.save(self.image)
@@ -123,6 +142,7 @@ class Burtle(Turtle):
 
         return True if x_touch and y_touch else False
 
+
     def go(self, **kwargs):
         if "right" in kwargs:
             self.goto(self.xcor() + kwargs["right"], self.ycor())
@@ -132,6 +152,7 @@ class Burtle(Turtle):
             self.goto(self.xcor(), self.ycor() + kwargs["up"])
         if "down" in kwargs:
             self.goto(self.xcor(), self.ycor() - kwargs["down"])
+
 
     def look(self, direction):
         if direction == "up":
@@ -143,14 +164,18 @@ class Burtle(Turtle):
         if direction == "right":
             self.seth(0)
 
+
     def l(self, n):
         self.seth(self.heading() + n)
+
 
     def r(self, n):
         self.seth(self.heading() + n)
 
+
     def tp(self, other):
         self.goto(other.xcor(), other.ycor())
+
 
     def draw_square(self, x=0, y=0, size=50, colour=None):
         self.seth(0)
@@ -165,6 +190,7 @@ class Burtle(Turtle):
             self.r(90)
 
         self.end_fill()
+
 
     def draw_grid(self, arr, size=50, special=None):
         y = (len(arr) * size) // 2
@@ -239,7 +265,6 @@ class Textbox(Burtle):
             wn.onkeypress(func, new_letter.upper())
         wn.onkeypress(lambda: self.update_text(' '), 'space')
         wn.onkeypress(self.remove_text, "BackSpace")
-
 
 
 BScreen = Screen
