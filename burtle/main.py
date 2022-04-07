@@ -18,13 +18,14 @@ class Burtle(Turtle):
         self.left = None
         self.top = None
         self.bottom = None
+        self.duplicated = False
 
         global current_id ## if two objects have the same image, allow for different dimensions when they are changed
         self.object_id = current_id ## by assigning a unique id when the new image is saved
         current_id += 1
 
         if self.image is not None: ## if image is passed, make turtle into an image, else its a normal turtle
-            self.setup_hitbox()
+            self.process_image()
 
     def process_image(self):
         self.convert_to_gif()
@@ -43,13 +44,7 @@ class Burtle(Turtle):
         self.right = self.left
 
     def change_size(self, percentage=None, static_size=None):
-        if "/" in self.image:
-            slash_location = self.image.rfind("/") + 1
-            file_name = f"{self.object_id}_{self.image[slash_location:]}"
-            file_dir = self.image[:slash_location]
-            self.new_image_path = f"{file_dir}{file_name}"
-        else:
-            self.new_image_path = f"{self.object_id}_{self.image}"
+        self.duplicate_image()
 
         if static_size is not None:
             self.pil_image.resize((static_size, static_size)).save(
@@ -61,16 +56,41 @@ class Burtle(Turtle):
         self.process_image()
 
 
+    def rotate(self, **kwargs):
+        self.duplicate_image()
+        if "left" in kwargs:
+            img = Image.open(self.image)
+            img = img.rotate(kwargs["left"], expand=1)
+            img.save(self.new_image_path)
+            self.image = self.new_image_path
+            self.process_image()
+
+
     def change_image(self, img_path):
         self.image = img_path
         self.process_image()
 
 
+    def duplicate_image(self):
+        if not self.duplicated:
+            if "/" in self.image:
+                slash_location = self.image.rfind("/") + 1  # +1 for the correct index below
+                file_name = f"{self.object_id}_{self.image[slash_location:]}"
+                file_dir = self.image[:slash_location]
+                self.new_image_path = f"{file_dir}{file_name}"
+            else:
+                self.new_image_path = f"{self.object_id}_{self.image}"
+            self.duplicated = True
+        else:
+            self.new_image_path = self.image
+
+
     def convert_to_gif(self):
-        if self.image.split(".")[1] != "gif":
-            img = Image.open(self.image)
-            self.image = f"{self.image.split('.')[0]}.gif"
-            img.save(self.image)
+        if "." in self.image:
+            if self.image.split(".")[1] != "gif":
+                img = Image.open(self.image)
+                self.image = f"{self.image.split('.')[0]}.gif"
+                img.save(self.image)
 
 
     def is_hitting(self, other):
