@@ -1,7 +1,7 @@
 # Burtle
 
 A Better TURTLE. Makes making games easier. <br><br>
-Documentation: https://alannxq.github.io/
+Documentation & guide: https://alannxq.github.io/burtle/
 
 ## Installation
 
