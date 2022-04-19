@@ -11,9 +11,10 @@ black_rectangle = __file__[:__file__.rfind("/")+1] + "default_images/black_recta
 white_circle = __file__[:__file__.rfind("/")+1] + "default_images/white_circle.gif"
 black_circle = __file__[:__file__.rfind("/")+1] + "default_images/black_circle.gif"
 
+all_burtles = []
 current_id = 0
 class Burtle(Turtle):
-    def __init__(self, image=None, *args, **kwargs):
+    def __init__(self, image=None, static=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         if image == "white_rectangle":  # Preset images for the user
@@ -43,7 +44,9 @@ class Burtle(Turtle):
         if self.image is not None: ## if image is passed, make turtle into an image, else its a normal turtle
             self.process_image()
 
-
+        if not static:
+            self.add_to_all_burtles()
+    
     def process_image(self):
         self.convert_to_gif()
         turtle.addshape(self.image)
@@ -64,7 +67,7 @@ class Burtle(Turtle):
 
     def change_size(self, percentage=None, static_size=None):
         self.duplicate_image()
-
+        print(self.width)
         if static_size is not None:
             self.pil_image.resize((static_size, static_size)).save(
                 self.new_image_path)
@@ -74,6 +77,7 @@ class Burtle(Turtle):
             self.pil_image.resize((self.calc_width, self.calc_height)).save(self.new_image_path)
         self.image = self.new_image_path
         self.process_image()
+        print(self.width)
 
 
     def rotate(self, degrees):
@@ -210,6 +214,17 @@ class Burtle(Turtle):
                 x += size
             y -= size
 
+    def add_to_all_burtles(self):
+        global all_burtles
+
+        all_burtles.append(self)
+
+    def jump(self, height=25, jumps=-3, speed=0.02):
+        for h in range(height, 0, jumps):
+            self.go(up=h)
+            wn.update()
+            time.sleep(speed)
+
 
 class Textbox(Burtle):
     def __init__(self, x=0, y=0, box_height=50, box_width=200, *args, **kwargs):
@@ -267,7 +282,15 @@ class Textbox(Burtle):
         wn.onkeypress(self.remove_text, "BackSpace")
 
 
+def gravity(strength):
+    global all_burtles
+    for burtle in all_burtles:
+        burtle.go(down=strength)
+
+
 BScreen = Screen
+wn = BScreen()
+wn.tracer(0, 0)
 
 
 def done():
