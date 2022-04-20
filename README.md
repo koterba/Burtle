@@ -9,7 +9,27 @@ Documentation & guide: https://alannxq.github.io/burtle/
 pip install burtle
 ```
 
-## Usage
+## Basic example
+
+```Py
+from burtle import Burtle, mainloop
+
+
+frog = Burtle("frog.gif")
+frog.go(up=50)
+
+bad_frog = Burtle("frog.gif")
+
+
+while True:
+  mainloop(fps=60)  # we can set any custom fps value here
+  
+  if frog.is_hitting(bad_frog):
+    print("Frogs collided!")
+
+```
+
+## Key press example
 
 ```Py
 from burtle import Burtle, mainloop, events
@@ -17,6 +37,7 @@ from burtle import Burtle, mainloop, events
 
 frog = Burtle("frog.gif")
 frog.go(up=50)
+
 
 def keybinds():
   for event in events():
