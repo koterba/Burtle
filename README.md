@@ -58,9 +58,9 @@ frog.go(up=50)
 
 def keybinds():
   for event in events():
-    if "w" in event:
+    if event == "w":
       frog.go(up=20)
-     elif "s" in event:
+     elif event == "s":
       frog.go(down=20)
       
 
