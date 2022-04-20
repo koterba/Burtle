@@ -52,3 +52,18 @@ while True:
   keybinds()  # here we run our keybinds function to continue getting new key presses
 
 ```
+
+## Image manipulation example
+
+```Py
+from burtle import Burtle, mainloop
+
+
+frog = Burtle("frog.gif")
+
+frog.change_size(50)  # 100 is default, anything larger will make it bigger, e.g. 50 will half the image in size
+      
+
+while True:
+  mainloop(fps=60)  # we can set any custom fps value here
+```
