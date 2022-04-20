@@ -6,13 +6,6 @@ import time
 import os
 
 
-# local imports
-
-
-
-slash_symbol = "\\" if os.name == "nt" else "/"
-
-
 image_path = os.path.join(os.path.dirname(os.path.join(__file__)), "default_images")
 white_rectangle = os.path.join(image_path, "white_rectangle.gif")
 black_rectangle = os.path.join(image_path, "black_rectangle.gif")
