@@ -29,6 +29,23 @@ while True:
 
 ```
 
+## gravity example
+
+```Py
+from burtle import Burtle, mainloop, gravity
+
+
+frog = Burtle("frog.gif")
+
+
+while True:
+  mainloop(fps=60)  # we can set any custom fps value here
+  gravity(1)  # thats all it is, just add the strength of the gravity
+  # also important to add a floor and check for collision as it will simple fall
+  # through otherwise
+
+```
+
 ## Key press example
 
 ```Py
