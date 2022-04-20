@@ -19,7 +19,6 @@ def events():
             if new_letter == " ":
                 new_letter = "space"  # change key name to space, so its easier for end user
             events.append(new_letter)
-    print(events)
 
     return events
 
