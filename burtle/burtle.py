@@ -12,10 +12,13 @@ import os
 
 slash_symbol = "\\" if os.name == "nt" else "/"
 
-white_rectangle = __file__[:__file__.rfind(slash_symbol)+1] + f"default_images{slash_symbol}white_rectangle.gif"
-black_rectangle = __file__[:__file__.rfind(slash_symbol)+1] + f"default_images{slash_symbol}black_rectangle.gif"
-white_circle = __file__[:__file__.rfind(slash_symbol)+1] + f"default_images{slash_symbol}white_circle.gif"
-black_circle = __file__[:__file__.rfind(slash_symbol)+1] + f"default_images{slash_symbol}black_circle.gif"
+
+image_path = os.path.join(os.path.dirname(os.path.join(__file__)), "default_images")
+white_rectangle = os.path.join(image_path, "white_rectangle.gif")
+black_rectangle = os.path.join(image_path, "black_rectangle.gif")
+white_circle = os.path.join(image_path, "white_circle.gif")
+black_circle = os.path.join(image_path, "black_circle.gif")
+
 
 all_burtles = []
 current_id = 0
@@ -33,6 +36,8 @@ class Burtle(Turtle):
             self.image = black_circle
         else:
             self.image = image
+        
+        print("THIS IS IMAG" ,self.image)
 
         self.pil_image = None
         self.width = None
@@ -92,6 +97,7 @@ class Burtle(Turtle):
         img = img.rotate(degrees, expand=1)
         img.save(self.new_image_path)
         self.image = self.new_image_path
+        self.clear()
         self.process_image()
 
 
@@ -104,6 +110,11 @@ class Burtle(Turtle):
         if not self.duplicated:
             if "/" in self.image:
                 slash_location = self.image.rfind("/") + 1  # +1 for the correct index below
+                file_name = f"{self.object_id}_{self.image[slash_location:]}"
+                file_dir = self.image[:slash_location]
+                self.new_image_path = f"{file_dir}{file_name}"
+            if "\\" in self.image:
+                slash_location = self.image.rfind("\\") + 1  # +1 for the correct index below
                 file_name = f"{self.object_id}_{self.image[slash_location:]}"
                 file_dir = self.image[:slash_location]
                 self.new_image_path = f"{file_dir}{file_name}"
