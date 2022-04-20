@@ -300,8 +300,10 @@ def events():
     global wn
     events = []
     wn.listen()
-    for new_letter in 'abcdefghijklmnopqrstuvwxyz':
-        if keyboard.is_pressed(new_letter):  # if key 'q' is pressed 
+    for new_letter in 'abcdefghijklmnopqrstuvwxyz ':
+        if keyboard.is_pressed(new_letter):  # if key 'q' is pressed
+            if new_letter == " ":
+                new_letter = "space"
             events.append(new_letter)
 
     return events
