@@ -1,15 +1,20 @@
 from turtle import Turtle, Screen
 from functools import partial
 from PIL import Image
+import keyboard
+import pygame
 import turtle
 import time
 import os
 
+CLOCK = pygame.time.Clock()
 
-white_rectangle = __file__[:__file__.rfind("/")+1] + "default_images/white_rectangle.gif"
-black_rectangle = __file__[:__file__.rfind("/")+1] + "default_images/black_rectangle.gif"
-white_circle = __file__[:__file__.rfind("/")+1] + "default_images/white_circle.gif"
-black_circle = __file__[:__file__.rfind("/")+1] + "default_images/black_circle.gif"
+slash_symbol = "\\" if os.name == "nt" else "/"
+
+white_rectangle = __file__[:__file__.rfind(slash_symbol)+1] + f"default_images{slash_symbol}white_rectangle.gif"
+black_rectangle = __file__[:__file__.rfind(slash_symbol)+1] + f"default_images{slash_symbol}black_rectangle.gif"
+white_circle = __file__[:__file__.rfind(slash_symbol)+1] + f"default_images{slash_symbol}white_circle.gif"
+black_circle = __file__[:__file__.rfind(slash_symbol)+1] + f"default_images{slash_symbol}black_circle.gif"
 
 all_burtles = []
 current_id = 0
@@ -287,15 +292,23 @@ def gravity(strength):
     for burtle in all_burtles:
         burtle.go(down=strength)
 
-
 BScreen = Screen
 wn = BScreen()
 wn.tracer(0, 0)
 
+def events():
+    global wn
+    events = []
+    wn.listen()
+    for new_letter in 'abcdefghijklmnopqrstuvwxyz':
+        if keyboard.is_pressed(new_letter):  # if key 'q' is pressed 
+            events.append(new_letter)
+
+    return events
 
 def done():
     turtle.done()
 
-
-def mainloop():
-    turtle.mainloop()
+def mainloop(fps=60):
+    CLOCK.tick(fps)
+    wn.update()
