@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'burtle',         # How you named your package folder (MyLib)
   packages = ['burtle'],   # Chose the same as "name"
-  version = '0.9',      # Start with a small number and increase it with every change you make
+  version = '0.9.1',      # Start with a small number and increase it with every change you make
   license='MIT',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'A game focued version of the turtle module',   # Give a short description about your library
   author = 'Alan Koterba',                   # Type in your name
