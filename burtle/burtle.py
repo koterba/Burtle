@@ -106,7 +106,7 @@ class Burtle(Turtle):
                 file_name = f"{self.object_id}_{self.image[slash_location:]}"
                 file_dir = self.image[:slash_location]
                 self.new_image_path = f"{file_dir}{file_name}"
-            if "\\" in self.image:
+            elif "\\" in self.image:
                 slash_location = self.image.rfind("\\") + 1  # +1 for the correct index below
                 file_name = f"{self.object_id}_{self.image[slash_location:]}"
                 file_dir = self.image[:slash_location]
