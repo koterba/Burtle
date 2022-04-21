@@ -29,8 +29,6 @@ class Burtle(Turtle):
             self.image = black_circle
         else:
             self.image = image
-        
-        print("THIS IS IMAG" ,self.image)
 
         self.pil_image = None
         self.width = None
@@ -71,7 +69,6 @@ class Burtle(Turtle):
 
     def change_size(self, percentage=None, static_size=None):
         self.duplicate_image()
-        print(self.width)
         if static_size is not None:
             self.pil_image.resize((static_size, static_size)).save(
                 self.new_image_path)
@@ -81,7 +78,6 @@ class Burtle(Turtle):
             self.pil_image.resize((self.calc_width, self.calc_height)).save(self.new_image_path)
         self.image = self.new_image_path
         self.process_image()
-        print(self.width)
 
 
     def rotate(self, degrees):
