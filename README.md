@@ -15,7 +15,7 @@ pip install burtle
 from burtle import Burtle, mainloop
 
 
-frog = Burtle("frog.gif")  # you will need to have a gif file called "frog.gif" in your current directory
+frog = Burtle("frog.gif")  # you will need to have a file called "frog.gif" in your current directory
 frog.go(up=50)
 
 bad_frog = Burtle("frog.gif")
