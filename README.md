@@ -29,7 +29,7 @@ while True:
 
 ```
 
-## gravity example
+## Gravity example
 
 ```Py
 from burtle import Burtle, mainloop, gravity
