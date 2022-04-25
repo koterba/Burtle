@@ -14,9 +14,11 @@ black_circle = os.path.join(image_path, "black_circle.gif")
 
 
 all_burtles = []
+collision_objects = []
+
 current_id = 0
 class Burtle(Turtle):
-    def __init__(self, image=None, static=False, *args, **kwargs):
+    def __init__(self, image=None, static=False, collision=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         if image == "white_rectangle":  # Preset images for the user
@@ -47,7 +49,13 @@ class Burtle(Turtle):
             self.process_image()
 
         if not static:
-            self.add_to_all_burtles()
+            global all_burtles
+            all_burtles.append(self)
+        
+        if collision:
+            global collision_objects
+            collision_objects.append(self)
+            
     
     def process_image(self):
         self.convert_to_gif()
@@ -69,6 +77,7 @@ class Burtle(Turtle):
 
     def change_size(self, percentage=None, static_size=None):
         self.duplicate_image()
+        print(self.width)
         if static_size is not None:
             self.pil_image.resize((static_size, static_size)).save(
                 self.new_image_path)
@@ -78,6 +87,7 @@ class Burtle(Turtle):
             self.pil_image.resize((self.calc_width, self.calc_height)).save(self.new_image_path)
         self.image = self.new_image_path
         self.process_image()
+        print(self.width)
 
 
     def rotate(self, degrees):
@@ -125,10 +135,18 @@ class Burtle(Turtle):
     def is_hitting(self, other):
         x_touch = False
         y_touch = False
+        
+        self.top_hitting = False
+        self.bottom_hitting = False
+        self.right_hitting = False
+        self.left_hitting = False
+        
         if self.xcor() - self.left <= other.xcor() - other.left <= self.xcor() + self.right:
             x_touch = True
+            self.left_hitting = True
         if self.xcor() - self.left <= other.xcor() + other.right <= self.xcor() + self.right:
             x_touch = True
+            self.right_hitting = True
 
         if self.ycor() + self.top >= other.ycor() + other.top >= self.ycor() - self.bottom:
             y_touch = True
@@ -220,10 +238,6 @@ class Burtle(Turtle):
                 x += size
             y -= size
 
-    def add_to_all_burtles(self):
-        global all_burtles
-
-        all_burtles.append(self)
 
     def jump(self, height=25, jumps=-3, speed=0.02):
         for h in range(height, 0, jumps):
