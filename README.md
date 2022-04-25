@@ -1,7 +1,7 @@
 # Burtle
 
 A Better TURTLE. Makes making games easier. <br><br>
-write less do more!!<br>
+write less do more!!<br><br>
 Documentation & guide: https://alannxq.github.io/burtle/
 
 ## Installation
