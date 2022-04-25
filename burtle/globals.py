@@ -1,0 +1,5 @@
+affected_by_gravity = []
+movable_objects = []
+burtle_keybinds = []
+solid_objects = []
+all_burtles = []
