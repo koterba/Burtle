@@ -15,6 +15,19 @@ pip install burtle
 from burtle import Burtle, mainloop
 
 
+frog = Burtle("frog.gif")
+frog.default_keys()  # you can specify any keys, but it will bind them to WASD by default, speed can be specified too
+
+while True:
+  mainloop()
+```
+
+## Collision detection example
+
+```Py
+from burtle import Burtle, mainloop
+
+
 frog = Burtle("frog.gif")  # you will need to have a file called "frog.gif" in your current directory
 frog.go(up=50)
 
@@ -26,20 +39,6 @@ while True:
   
   if frog.is_hitting(bad_frog):
     print("Frogs collided!")
-
-```
-
-## Easy movement example
-
-```Py
-from burtle import Burtle, mainloop
-
-
-frog = Burtle("frog.gif")
-frog.default_keys()  # you can specify any keys, but it will bind them to WASD by default, speed can be specified too
-
-while True:
-  mainloop()
 
 ```
 
@@ -60,7 +59,7 @@ while True:
 
 ```
 
-## Key press example
+## Events example
 
 ```Py
 from burtle import Burtle, mainloop, events
@@ -73,10 +72,10 @@ frog.go(up=50)
 while True:
   mainloop(fps=60)  # we can set any custom fps value here
   
-  for event in events():
-    if event == "w":
+  for key in events():
+    if key == "w":
       frog.go(up=20)
-     elif event == "s":
+    if key == "s":
       frog.go(down=20)
 
 ```
