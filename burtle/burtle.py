@@ -164,7 +164,6 @@ class Burtle(Turtle):
         if self.ycor() + self.top >= other.ycor() - other.bottom >= self.ycor() - self.bottom:
             y_touch = True
             top_hit = True
-
         
         ## SIDE THAT IS TOUCHING
 
@@ -182,6 +181,7 @@ class Burtle(Turtle):
 
         return True if x_touch and y_touch else False
 
+    
     def is_clicked(self, x, y):
         x_touch = False
         y_touch = False
