@@ -22,15 +22,9 @@ class Burtle(Turtle):
     def __init__(self, image=None, static=False, solid=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if image == "white_rectangle":  # Preset images for the user
-            self.image = white_rectangle
-        elif image == "black_rectangle":
-            self.image = black_rectangle
-        elif image == "white_circle":
-            self.image = white_circle
-        elif image == "black_circle":
-            self.image = black_circle
-        else:
+        try:  # Preset images for the user
+            self.image = eval(image) ## not proud of this but it works!
+        except:
             self.image = image
 
         self.pil_image = None
