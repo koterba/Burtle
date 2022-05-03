@@ -13,20 +13,19 @@ pip install burtle
 ## Basic example
 
 ```Py
-from burtle import Burtle, mainloop
+from burtle import Burtle, run
 
 
 frog = Burtle("frog.gif")
 frog.default_keys()  # you can specify any keys, but it will bind them to WASD by default, speed can be specified too
 
-while True:
-  mainloop()
+run()
 ```
 
 ## Collision detection example
 
 ```Py
-from burtle import Burtle, mainloop
+from burtle import Burtle, run, event
 
 
 frog = Burtle("frog.gif")  # you will need to have a file called "frog.gif" in your current directory
@@ -34,64 +33,59 @@ frog.go(up=50)
 
 bad_frog = Burtle("frog.gif")
 
-
-while True:
-  mainloop(fps=60)  # we can set any custom fps value here
-  
+@event
+def collision():
   if frog.is_hitting(bad_frog):
     print("Frogs collided!")
 
+
+run()
 ```
 
 ## Gravity example
 
 ```Py
-from burtle import Burtle, mainloop, gravity
+from burtle import Burtle, run, event
 
 
 frog = Burtle("frog.gif")
 
+@event
+def grav():
+  gravity(1)
 
-while True:
-  mainloop(fps=60)  # we can set any custom fps value here
-  gravity(1)  # thats all it is, just add the strength of the gravity
-  # also important to add a floor and check for collision as it will simple fall
-  # through otherwise
-
+run()
 ```
 
 ## Events example
 
 ```Py
-from burtle import Burtle, mainloop, events
+from burtle import Burtle, run, event, key_events
 
 
 frog = Burtle("frog.gif")
 frog.go(up=50)
       
-
-while True:
-  mainloop(fps=60)  # we can set any custom fps value here
-  
-  for key in events():
+@event
+def key_bindings():
+  for key in key_events():
     if key == "w":
       frog.go(up=20)
     if key == "s":
       frog.go(down=20)
 
+run()
 ```
 
 ## Image manipulation example
 
 ```Py
-from burtle import Burtle, mainloop
+from burtle import Burtle, run
 
 
 frog = Burtle("frog.gif")
 
 frog.change_size(50)  # 100 is default, anything larger will make it bigger, e.g. 50 will half the image in size
       
-
-while True:
-  mainloop(fps=60)  # we can set any custom fps value here
+run()
 ```
