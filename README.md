@@ -16,8 +16,8 @@ pip install burtle
 from burtle import Burtle, run
 
 
-frog = Burtle("frog.gif")
-frog.default_keys()  # you can specify any keys, but it will bind them to WASD by default, speed can be specified too
+ball = Burtle("black_circle")
+ball.default_keys()  # you can specify any keys, but it will bind them to WASD by default, speed can be specified too
 
 run()
 ```
