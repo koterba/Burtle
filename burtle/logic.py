@@ -1,10 +1,11 @@
-from .globals import solid_objects, burtle_keybinds, movable_objects
+from .globals import solid_objects, burtle_keybinds, movable_objects, function_events
 from .window import window
 import pygame
 import turtle
 
 
 CLOCK = pygame.time.Clock()
+burtle_playing = True
 
 
 def done():
@@ -21,3 +22,10 @@ def mainloop(fps=60):
     for obstacle in solid_objects:
         for burtle in movable_objects:
             burtle.is_hitting(obstacle)
+
+def run(fps=60):
+    while burtle_playing:
+        mainloop(fps)
+
+        for func in function_events:
+            func()
