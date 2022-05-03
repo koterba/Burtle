@@ -5,7 +5,7 @@ import keyboard
 
 
 
-def events():
+def key_events():
     global window
     events = []
     possible_keys = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' ','left','right','up','down']
@@ -20,7 +20,7 @@ def events():
 
 
 def key_binder(burtle, speed, Up, Down, Left, Right):
-    for key in events():
+    for key in key_events():
         if key == Up and not burtle.top_hitting:
             burtle.go(up=speed)
         if key == Down and not burtle.bottom_hitting:
