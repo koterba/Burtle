@@ -23,7 +23,7 @@ class Burtle(Turtle):
         super().__init__(*args, **kwargs)
 
         try:  # Preset images for the user
-            self.image = eval(image) ## not proud of this but it works!
+            self.image = eval(image)
         except:
             self.image = image
 
@@ -158,6 +158,7 @@ class Burtle(Turtle):
         if self.ycor() + self.top >= other.ycor() - other.bottom >= self.ycor() - self.bottom:
             y_touch = True
             top_hit = True
+
         
         ## SIDE THAT IS TOUCHING
 
@@ -175,7 +176,6 @@ class Burtle(Turtle):
 
         return True if x_touch and y_touch else False
 
-    
     def is_clicked(self, x, y):
         x_touch = False
         y_touch = False
