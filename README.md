@@ -21,6 +21,23 @@ ball.default_keys()  # you can specify any keys, but it will bind them to WASD b
 run()
 ```
 
+## Event example
+
+```Py
+from burtle import Burtle, run, event
+
+
+ball = Burtle("black_circle")  # this image is provided by default
+
+
+@event  # any function with the "@event" decorator will be ran every frame
+def move():
+  ball.go(up=2)
+
+
+run()  # fps can be specificed here, it is 60 by default
+```
+
 ## Collision detection example
 
 ```Py
