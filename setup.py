@@ -28,5 +28,5 @@ setup(
   include_package_data=True,
   package_data={'': ['default_images/*.gif']},
   long_description=long_description,
-  long_description_content_type='text/markdown'
+  long_description_content_type='text/markdown',
 )
