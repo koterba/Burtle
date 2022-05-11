@@ -1,4 +1,9 @@
 from distutils.core import setup
+from pathlib import Path
+
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
+
 setup(
   name = 'burtle',         # How you named your package folder (MyLib)
   packages = ['burtle'],   # Chose the same as "name"
@@ -21,5 +26,7 @@ setup(
     'Programming Language :: Python :: 3.6',
   ],
   include_package_data=True,
-  package_data={'': ['default_images/*.gif']}
+  package_data={'': ['default_images/*.gif']},
+  long_description=long_description,
+  long_description_content_type='text/markdown'
 )
