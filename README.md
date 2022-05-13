@@ -16,7 +16,7 @@ from burtle import Burtle, run
 
 
 ball = Burtle("black_circle")
-ball.default_keys()  # you can specify any keys, but it will bind them to WASD by default, speed can be specified too
+ball.default_keys()  # WASD is used by default to move the burtle parameters include: Up, Down, Left, Right, speed
 
 run()
 ```
