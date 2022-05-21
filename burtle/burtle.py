@@ -10,6 +10,7 @@ import os
 
 image_path = os.path.join(os.path.dirname(os.path.join(__file__)), "default_images")  # location of this file, up a dir, then into default images folder
 
+## Should be all caps due to it being a constant, but because im using eval() the user would have to enter the name in full caps too.
 white_rectangle = os.path.join(image_path, "white_rectangle.gif")
 black_rectangle = os.path.join(image_path, "black_rectangle.gif")
 white_circle = os.path.join(image_path, "white_circle.gif")
