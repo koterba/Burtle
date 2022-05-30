@@ -35,7 +35,7 @@ def move():
   ball.go(up=2)
 
 
-run()  # fps can be specificed here, it is 60 by default
+run()  # fps can be specificed here, defaults to 60
 ```
 
 ## Collision detection example
