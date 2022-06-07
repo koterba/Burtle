@@ -50,9 +50,9 @@ frog.go(up=50)
 bad_frog = Burtle("frog.gif")
 
 @event
-def collision():
+def collision(): ## functions using the event decorator can have any name
   if frog.is_hitting(bad_frog):
-    print("Frogs collided!")
+    print("Frogs have collided!")
 
 
 run()
