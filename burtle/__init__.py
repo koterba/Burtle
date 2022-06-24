@@ -5,5 +5,3 @@ from burtle.key_binding     import key_events
 from burtle.textbox         import Textbox
 from burtle.gravity         import gravity
 from burtle.function_events import event
-
-#
