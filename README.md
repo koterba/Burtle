@@ -27,7 +27,7 @@ run()
 from burtle import Burtle, run, event
 
 
-ball = Burtle("black_circle")  # this image is provided by default
+ball = Burtle("black_circle")  # this image is provided by default 
 
 
 @event  # any function with the "@event" decorator will be ran every frame
