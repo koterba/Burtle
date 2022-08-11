@@ -4,7 +4,7 @@ A Better Turtle. Makes making games easier. <br><br>
 
 Documentation & guide: https://alannxq.github.io/burtle/
 
-## Installation
+## Installation 
 
 ```Py
 pip install burtle
