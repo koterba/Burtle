@@ -10,7 +10,7 @@ Documentation & guide: https://alannxq.github.io/burtle/
 pip install burtle
 ```
 
-## Basic example
+## Basic example 
 
 ```Py
 from burtle import Burtle, run
