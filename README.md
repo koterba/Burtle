@@ -7,7 +7,7 @@ Documentation & guide: https://alannxq.github.io/burtle/
 ## Installation
 
 ```Py
-pip install burtle
+pip install burtle 
 ```
 
 ## Basic example
