@@ -16,7 +16,7 @@ black_rectangle = os.path.join(image_path, "black_rectangle.gif")
 white_circle = os.path.join(image_path, "white_circle.gif")
 black_circle = os.path.join(image_path, "black_circle.gif")
 
-
+ 
 
 current_id = 0
 class Burtle(Turtle):
