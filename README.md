@@ -16,7 +16,7 @@ pip install burtle
 from burtle import Burtle, run
  
 
-ball = Burtle("black_circle")
+ball = Burtle("black_circle") 
 ball.default_keys()  # WASD is used by default to move the burtle. Parameters include: Up, Down, Left, Right, speed
 
 run()
