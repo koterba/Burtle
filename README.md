@@ -21,7 +21,7 @@ ball.default_keys()  # WASD is used by default to move the burtle. Parameters in
 
 run()
 ```
-
+ 
 ## Event example
 
 ```Py
