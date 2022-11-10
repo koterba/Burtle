@@ -49,7 +49,7 @@ frog = Burtle("frog.gif")  # you will need to have a file called "frog.gif" in y
 frog.go(up=50)
 
 bad_frog = Burtle("frog.gif")
-
+ 
 @event
 def collision(): ## functions using the event decorator can have any name
   if frog.is_hitting(bad_frog):
